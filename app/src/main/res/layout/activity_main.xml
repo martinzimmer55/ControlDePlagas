@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ImageView
+        android:id="@+id/imgUsuario"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="12dp"
+        app:srcCompat="@drawable/user" />
+
+    <ImageView
+        android:id="@+id/imgABM"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_below="@+id/txtABM"
+        android:layout_centerHorizontal="true"
+        android:onClick="abmCliente"
+        app:srcCompat="@drawable/abm" />
+
+    <ImageView
+        android:id="@+id/imgBuscar"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_alignStart="@+id/txtBuscar"
+        android:layout_centerVertical="true"
+        android:onClick="buscarCliente"
+        app:srcCompat="@drawable/search" />
+
+    <ImageView
+        android:id="@+id/imgOpciones"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_above="@+id/imgLogout"
+        android:layout_alignStart="@+id/imgBuscar"
+        android:layout_marginBottom="12dp"
+        android:onClick="configurarServer"
+        app:srcCompat="@drawable/opciones" />
+
+    <ImageView
+        android:id="@+id/imgLogout"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="32dp"
+        app:srcCompat="@drawable/logout" />
+
+    <TextView
+        android:id="@+id/txtABM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgUsuario"
+        android:layout_centerHorizontal="true"
+        android:text="ABM Clientes" />
+
+    <TextView
+        android:id="@+id/txtBuscar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imgBuscar"
+        android:layout_centerHorizontal="true"
+        android:text="Buscar Cliente" />
+
+    <TextView
+        android:id="@+id/txtOpciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imgOpciones"
+        android:layout_centerHorizontal="true"
+        android:text="Opciones" />
+
+    <TextView
+        android:id="@+id/txtUsuarioLogueado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imgUsuario"
+        android:layout_below="@+id/txtABM"
+        android:text="usuario" />
+
+    <TextView
+        android:id="@+id/txtLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imgLogout"
+        android:layout_alignStart="@+id/imgLogout"
+        android:text="Logout" />
+
+    <Button
+        android:id="@+id/btnPrueba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtLogout"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="21dp"
+        android:text="Button" />
+</RelativeLayout>
