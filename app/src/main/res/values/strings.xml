@@ -3,4 +3,9 @@
     <string name="boton_guardar">Guardar</string>
     <string name="boton_modificar">Modificar</string>
     <string name="boton_eliminar">Eliminar</string>
+    <string name="cliente_alta_titulo">Nuevo Cliente</string>
+    <string name="cliente_borrar_titulo">Borrar Cliente</string>
+    <string name="cliente_editar_titulo">Editar Cliente</string>
+    <string name="separador">:</string>
+
 </resources>

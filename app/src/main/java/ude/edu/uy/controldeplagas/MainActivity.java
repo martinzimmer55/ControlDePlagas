@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        txtABM = (TextView) findViewById(R.id.txtABM);
+        /*txtABM = (TextView) findViewById(R.id.txtAltaCliente);
         imgABM = (ImageView) findViewById(R.id.imgABM);
         txtABM.setVisibility(View.VISIBLE);
         imgABM.setVisibility(View.VISIBLE);
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        new verificarGet().execute();
+        new verificarGet().execute();*/
 
     }
 
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private class verificarGet extends AsyncTask {
+    /*private class verificarGet extends AsyncTask {
 
         @Override
         protected Object doInBackground(Object[] objects) {
@@ -65,5 +64,5 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Respuesta del server: ", result);
             return null;
         }
-    }
+    }*/
 }

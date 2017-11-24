@@ -1,15 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <CheckBox
-        android:id="@+id/checkBox"
+    <ImageView
+        android:id="@+id/imgUsuario"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:srcCompat="@drawable/user_logged"
+        tools:layout_editor_absoluteX="304dp" />
+
+    <ImageView
+        android:id="@+id/imgNuevoCliente"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_below="@+id/txtUsuarioLogueado"
+        android:layout_centerHorizontal="true"
+        android:onClick="altaCliente"
+        app:srcCompat="@drawable/add_user"
+        tools:layout_editor_absoluteX="144dp" />
+
+    <ImageView
+        android:id="@+id/imgEditarCliente"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginStart="30dp"
+        android:onClick="editarCliente"
+        app:srcCompat="@drawable/edit_user"
+        tools:layout_editor_absoluteX="144dp" />
+
+    <ImageView
+        android:id="@+id/imgBorrarCliente"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:onClick="configurarServer"
+        app:srcCompat="@drawable/remove_user"
+        tools:layout_editor_absoluteX="144dp"
+        tools:layout_editor_absoluteY="329dp" />
+
+    <TextView
+        android:id="@+id/txtAltaCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:layout_above="@+id/imgNuevoCliente"
+        android:layout_alignStart="@+id/imgNuevoCliente"
+        android:text="Nuevo Cliente"
+        tools:layout_editor_absoluteX="149dp" />
+
+    <TextView
+        android:id="@+id/txtEditarCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_centerHorizontal="true"
+        android:text="Editar Cliente"
+        tools:layout_editor_absoluteX="151dp" />
+
+    <TextView
+        android:id="@+id/txtBorrarCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_above="@+id/imgEditarCliente"
+        android:layout_alignEnd="@+id/imgEditarCliente"
+        android:text="Borrar Cliente"
+        app:layout_constraintBottom_toTopOf="@+id/imgBorrarCliente"
+        tools:layout_editor_absoluteX="149dp" />
+
+    <TextView
+        android:id="@+id/txtUsuarioLogueado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CheckBox"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_alignEnd="@+id/imgUsuario"
+        android:layout_below="@+id/imgUsuario"
+        android:text="usuario"
+        tools:layout_editor_absoluteX="312dp"
+        tools:layout_editor_absoluteY="80dp" />
+
+</RelativeLayout>
