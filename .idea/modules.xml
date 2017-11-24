@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ControlDePlagas.iml" filepath="$PROJECT_DIR$/ControlDePlagas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ControlDePlagas.iml" filepath="$PROJECT_DIR$/.idea/ControlDePlagas.iml" />
+      <module fileurl="file://D:\goliath\AndroidStudioProjects\ControlDePlagas\ControlDePlagas.iml" filepath="D:\goliath\AndroidStudioProjects\ControlDePlagas\ControlDePlagas.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
