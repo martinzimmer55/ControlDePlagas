@@ -24,7 +24,7 @@ public class HttpUrlConnection {
                 .build();
         try {
             Response response = client.newCall(request).execute();
-            result = response.toString();
+            result = response.body().string();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,7 +45,7 @@ public class HttpUrlConnection {
 
         try {
             Response response = client.newCall(request).execute();
-            result = response.toString();
+            result = response.body().string();
         } catch (IOException e) {
             e.printStackTrace();
         }

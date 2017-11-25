@@ -93,6 +93,7 @@
         android:layout_alignBottom="@+id/btn_cliente_siguiente"
         android:layout_alignParentStart="true"
         android:layout_marginStart="22dp"
+        android:onClick="volverMain"
         android:text="Volver"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="446dp" />

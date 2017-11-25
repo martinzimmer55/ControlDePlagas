@@ -100,5 +100,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void buscarCliente(View v) {
+        Intent intent = new Intent(getApplicationContext(), ActivityBuscarCliente.class);
+        intent.putExtra("direccion", direccion);
+        intent.putExtra("puerto", puerto);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("password", password);
+        startActivity(intent);
+    }
 
 }

@@ -6,6 +6,7 @@
     <string name="cliente_alta_titulo">Nuevo Cliente</string>
     <string name="cliente_borrar_titulo">Borrar Cliente</string>
     <string name="cliente_editar_titulo">Editar Cliente</string>
+    <string name="cliente_ver_titulo">Ver Cliente</string>
     <string name="separador">:</string>
     <string name="preferences_file">controldeplagaspref</string>
 </resources>
