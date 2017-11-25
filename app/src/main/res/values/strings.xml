@@ -7,5 +7,5 @@
     <string name="cliente_borrar_titulo">Borrar Cliente</string>
     <string name="cliente_editar_titulo">Editar Cliente</string>
     <string name="separador">:</string>
-
+    <string name="preferences_file">uy.edu.ude.controldeplagas.PREFERENCES</string>
 </resources>
