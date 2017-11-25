@@ -25,7 +25,7 @@ import ude.edu.uy.controldeplagas.converters.EncodeBase64;
 public class ActivityBuscarCliente extends AppCompatActivity{
     private TextView txtIdentificador;
     private Intent intentAnterior;
-    private String direccionServer, puerto, usuario, password;
+    private String direccionServer, puerto, usuario, password, operacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class ActivityBuscarCliente extends AppCompatActivity{
         puerto = intentAnterior.getStringExtra("puerto");
         usuario = intentAnterior.getStringExtra("usuario");
         password = intentAnterior.getStringExtra("password");
+        operacion = intentAnterior.getStringExtra("operacion");
         txtIdentificador = (TextView) findViewById(R.id.txt_cliente_id);
     }
 
@@ -76,11 +77,27 @@ public class ActivityBuscarCliente extends AppCompatActivity{
             }
             if (cliente != null) {
                 try{
-                    Intent intent = new Intent(getApplicationContext(), ActivityVerCliente.class);
+                    Intent intent = null;
+                    if (operacion.equals("buscar")) {
+                        intent = new Intent(getApplicationContext(), ActivityVerCliente.class);
+                    } else {
+                        if (operacion.equals("editar")) {
+                            intent = new Intent(getApplicationContext(), ActivityEditarCliente.class);
+                        } else {
+                            if (operacion.equals("borrar")) {
+                                intent = new Intent(getApplicationContext(), ActivityBorrarCliente.class);
+                            }
+                        }
+                    }
+                    intent.putExtra("direccionServer", direccionServer);
+                    intent.putExtra("puerto", puerto);
+                    intent.putExtra("usuario", usuario);
+                    intent.putExtra("password", password);
                     intent.putExtra("nombre", cliente.getString("nombre"));
                     intent.putExtra("telefono", cliente.getString("telefono"));
                     intent.putExtra("email", cliente.getString("email"));
                     intent.putExtra("direccion", cliente.getString("direccion"));
+                    intent.putExtra("identificador", identificador);
                     //intent.putExtra("departamento", cliente.getString("departamento"));
                     startActivity(intent);
                 } catch (JSONException e) {

@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("puerto", puerto);
         intent.putExtra("usuario", usuario);
         intent.putExtra("password", password);
+        intent.putExtra("operacion", "buscar");
         startActivity(intent);
     }
 

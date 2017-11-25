@@ -37,11 +37,21 @@ public class ActivityABMCliente extends AppCompatActivity {
 
     public void editarCliente (View v){
         Intent intent = new Intent(getApplicationContext(), ActivityBuscarCliente.class);
+        intent.putExtra("direccion", direccion);
+        intent.putExtra("puerto", puerto);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("password", password);
+        intent.putExtra("operacion", "editar");
         startActivity(intent);
     }
 
     public void borrarCliente (View v) {
-        Intent intent = new Intent(getApplicationContext(), ActivityBorrarCliente.class);
+        Intent intent = new Intent(getApplicationContext(), ActivityBuscarCliente.class);
+        intent.putExtra("direccion", direccion);
+        intent.putExtra("puerto", puerto);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("password", password);
+        intent.putExtra("operacion", "borrar");
         startActivity(intent);
     }
 }
