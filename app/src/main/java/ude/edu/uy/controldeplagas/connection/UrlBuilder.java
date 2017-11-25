@@ -8,8 +8,8 @@ import ude.edu.uy.controldeplagas.R;
 
 public class UrlBuilder {
 
-    public static String buildUrl (String direccion, String puerto) {
-        String url = "http://" + direccion + R.string.separador + puerto;
+    public static String buildUrl (String direccion, String puerto, String selector, String id) {
+        String url = "http://" + direccion + R.string.separador + puerto + "/" + selector + "/" + id;
         return url;
     }
 }

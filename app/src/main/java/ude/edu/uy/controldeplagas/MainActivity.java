@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 
 import ude.edu.uy.controldeplagas.connection.HttpUrlConnection;
@@ -65,4 +68,33 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }*/
+
+    public void testpost(View v){
+        new ProbarPost().execute();
+    }
+
+    private class ProbarPost extends AsyncTask {
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("nombre", "Carlos3002");
+                jsonObject.put("telefono", "16561656");
+                jsonObject.put("email", "dafd@adfdaf.com");
+                jsonObject.put("direccion", "odofidf");
+                jsonObject.put("departamento", "http://localhost:8080/departamento/3");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            String res = HttpUrlConnection.sendPost("http://192.168.255.171:8080/cliente/", "dmVuZGVkb3I6UGFzczAxLg==",
+                    jsonObject.toString());
+            Log.d("El resultado es: ", res);
+            return null;
+        }
+    }
+
+
+
 }

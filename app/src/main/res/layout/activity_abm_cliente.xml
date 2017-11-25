@@ -19,8 +19,8 @@
         android:id="@+id/imgNuevoCliente"
         android:layout_width="96dp"
         android:layout_height="96dp"
+        android:layout_alignStart="@+id/imgEditarCliente"
         android:layout_below="@+id/txtUsuarioLogueado"
-        android:layout_centerHorizontal="true"
         android:onClick="altaCliente"
         app:srcCompat="@drawable/add_user"
         tools:layout_editor_absoluteX="144dp" />
@@ -29,10 +29,8 @@
         android:id="@+id/imgEditarCliente"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="25dp"
-        android:layout_marginStart="30dp"
+        android:layout_below="@+id/txtEditarCliente"
+        android:layout_centerHorizontal="true"
         android:onClick="editarCliente"
         app:srcCompat="@drawable/edit_user"
         tools:layout_editor_absoluteX="144dp" />
@@ -41,6 +39,8 @@
         android:id="@+id/imgBorrarCliente"
         android:layout_width="96dp"
         android:layout_height="96dp"
+        android:layout_alignStart="@+id/imgEditarCliente"
+        android:layout_below="@+id/txtBorrarCliente"
         android:onClick="configurarServer"
         app:srcCompat="@drawable/remove_user"
         tools:layout_editor_absoluteX="144dp"
@@ -49,16 +49,17 @@
     <TextView
         android:id="@+id/txtAltaCliente"
         android:layout_width="wrap_content"
-        android:layout_height="33dp"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/imgNuevoCliente"
-        android:layout_alignStart="@+id/imgNuevoCliente"
+        android:layout_alignEnd="@+id/txtEditarCliente"
         android:text="Nuevo Cliente"
         tools:layout_editor_absoluteX="149dp" />
 
     <TextView
         android:id="@+id/txtEditarCliente"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgNuevoCliente"
         android:layout_centerHorizontal="true"
         android:text="Editar Cliente"
         tools:layout_editor_absoluteX="151dp" />
@@ -66,9 +67,9 @@
     <TextView
         android:id="@+id/txtBorrarCliente"
         android:layout_width="wrap_content"
-        android:layout_height="34dp"
-        android:layout_above="@+id/imgEditarCliente"
-        android:layout_alignEnd="@+id/imgEditarCliente"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/txtEditarCliente"
+        android:layout_below="@+id/imgEditarCliente"
         android:text="Borrar Cliente"
         app:layout_constraintBottom_toTopOf="@+id/imgBorrarCliente"
         tools:layout_editor_absoluteX="149dp" />
