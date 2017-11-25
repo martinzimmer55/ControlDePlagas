@@ -1,6 +1,8 @@
 package ude.edu.uy.controldeplagas;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,53 +25,46 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtABM;
     private ImageView imgABM;
     private Button btnPrueba;
+    private String direccion, puerto, usuario, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /*txtABM = (TextView) findViewById(R.id.txtAltaCliente);
-        imgABM = (ImageView) findViewById(R.id.imgABM);
-        txtABM.setVisibility(View.VISIBLE);
-        imgABM.setVisibility(View.VISIBLE);
-        String usuario = "pepe";
-        btnPrueba = (Button) findViewById(R.id.btnPrueba);
-        if (usuario.equals("admin")) {
-            btnPrueba.setText(R.string.boton_eliminar);
-        } else {
-            if (usuario.equals("pepe")) {
-                btnPrueba.setText(R.string.boton_guardar);
-            } else {
-                btnPrueba.setText(R.string.boton_modificar);
-            }
+
+        //saco shared preferences y verifico direccion y puerto
+        SharedPreferences prefs = getSharedPreferences(String.valueOf(R.string.preferences_file), Context.MODE_PRIVATE);
+        direccion = prefs.getString("direccion", "");
+        puerto = prefs.getString("puerto", "");
+        Log.d("shared pref: ", prefs.toString());
+        Log.d("direccion: ", direccion);
+        Log.d("puerto: ",puerto);
+        if ((direccion.equals("")) || (puerto.equals(""))) {
+            //direccionar a configuracion
+            Intent intent = new Intent(getApplicationContext(), ActivityConfigurarServer.class);
+            startActivity(intent);
         }
 
-        new verificarGet().execute();*/
-
+        usuario = prefs.getString("usuario", "usuario_por_defecto");
+        password = prefs.getString("password", "password_por_defecto");
+        Log.d("usuario y password: ", usuario + " " + password);
+        if ((usuario.equals("usuario_por_defecto")) || (password.equals("password_por_defecto"))) {
+            //direccionar a login
+            Intent intent = new Intent(getApplicationContext(), ActivityLogin.class);
+            startActivity(intent);
+        }
     }
 
-    public void abmCliente (View v) {
+    public void abmCliente(View v) {
         Intent intent = new Intent(getApplicationContext(), ActivityABMCliente.class);
+        intent.putExtra("direccion", direccion);
+        intent.putExtra("puerto", puerto);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("password", password);
         startActivity(intent);
     }
 
-    /*private class verificarGet extends AsyncTask {
-
-        @Override
-        protected Object doInBackground(Object[] objects) {
-            String authentication = "";
-            try {
-                authentication = EncodeBase64.encodeUserPassword("vendedor", "Pass01.");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            String result = HttpUrlConnection.sendGet("http://192.168.1.3:8080/cliente/", authentication);
-            Log.d("Respuesta del server: ", result);
-            return null;
-        }
-    }*/
-
-    public void testpost(View v){
+    public void testpost(View v) {
         new ProbarPost().execute();
     }
 
@@ -95,6 +90,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void configurarServer (View v) {
+        Intent intent = new Intent(getApplicationContext(), ActivityConfigurarServer.class);
+        startActivity(intent);
+    }
+
+    public void configurarLogin (View v) {
+        Intent intent = new Intent(getApplicationContext(), ActivityLogin.class);
+        startActivity(intent);
+    }
 
 
 }

@@ -41,7 +41,7 @@
         android:layout_height="96dp"
         android:layout_alignStart="@+id/imgEditarCliente"
         android:layout_below="@+id/txtBorrarCliente"
-        android:onClick="configurarServer"
+        android:onClick="borrarCliente"
         app:srcCompat="@drawable/remove_user"
         tools:layout_editor_absoluteX="144dp"
         tools:layout_editor_absoluteY="329dp" />
