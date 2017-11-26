@@ -23,7 +23,7 @@
         android:layout_alignStart="@+id/sp_cliente_departamento"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Identificacion"
+        android:hint="Identificacion"
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="58dp" />
 
@@ -35,7 +35,7 @@
         android:layout_alignStart="@+id/txt_cliente_telefono"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Nombre"
+        android:hint="Nombre"
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="97dp" />
 
@@ -47,7 +47,7 @@
         android:layout_alignStart="@+id/txt_cliente_id"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Teléfono"
+        android:hint="Teléfono"
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="143dp" />
 
@@ -59,7 +59,7 @@
         android:layout_alignStart="@+id/txt_cliente_direccion"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Email"
+        android:hint="Email"
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="189dp" />
 
@@ -71,7 +71,7 @@
         android:layout_alignEnd="@+id/sp_cliente_departamento"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Direccion"
+        android:hint="Direccion"
         tools:layout_editor_absoluteX="85dp"
         tools:layout_editor_absoluteY="276dp" />
 

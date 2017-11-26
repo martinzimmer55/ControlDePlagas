@@ -76,11 +76,11 @@ public class HttpUrlConnection {
 
         try {
             Response response = client.newCall(request).execute();
-            String r = response.toString();
-            if (r.contains("200")) {
-                result = response.body().string();
+            int code = response.code();
+            if (code == 204) {
+                result = "Se han modificado los datos correctamente";
             } else {
-                result = "Error: " + r;
+                result = "Error: " + response.toString();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -125,11 +125,11 @@ public class HttpUrlConnection {
 
         try {
             Response response = client.newCall(request).execute();
-            String r = response.toString();
-            if (r.contains("204")) {
-                result = response.body().string();
+            int code = response.code();
+            if (code == 204) {
+                result = "Se han borrado los datos correctamente";
             } else {
-                result = "Error: " + r;
+                result = "Error: " + response.toString();
             }
         } catch (IOException e) {
             e.printStackTrace();

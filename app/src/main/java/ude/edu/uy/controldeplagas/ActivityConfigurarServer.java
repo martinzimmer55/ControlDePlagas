@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -30,9 +31,11 @@ public class ActivityConfigurarServer extends AppCompatActivity{
         String puerto = txtPuerto.getText().toString();
         if (direccion.isEmpty()) {
             //mostrar mensaje direccion vacia
+            Toast.makeText(getApplicationContext(), "La direccion no puede ser vacia", Toast.LENGTH_LONG).show();
         } else {
             if (puerto.isEmpty()) {
                 //mostrar mensaje puerto vacio
+                Toast.makeText(getApplicationContext(), "El puerto no puede ser vacio", Toast.LENGTH_LONG).show();
             } else {
                 SharedPreferences prefs = getSharedPreferences(String.valueOf(R.string.preferences_file), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
@@ -44,4 +47,6 @@ public class ActivityConfigurarServer extends AppCompatActivity{
             }
         }
     }
+
+
 }

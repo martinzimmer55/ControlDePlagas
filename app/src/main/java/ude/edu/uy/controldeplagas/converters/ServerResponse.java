@@ -12,10 +12,12 @@ public class ServerResponse {
                 response = "Recurso no encontrado";
             } else {
                 if (resultado.contains("500")) {
-                    response = "Datos invalidos";
+                    response = "Datos inválidos";
                 } else {
-                    if (response.contains("401")) {
-                        response = "Datos de usuario invalidos";
+                    if (resultado.contains("401")) {
+                        response = "Permisos insuficientes o datos de usuario invalidos, verifique usuario y password";
+                    } else {
+                        response = "Error desconocido";
                     }
                 }
             }

@@ -1,5 +1,8 @@
 package ude.edu.uy.controldeplagas;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 import ude.edu.uy.controldeplagas.connection.HttpUrlConnection;
 import ude.edu.uy.controldeplagas.connection.UrlBuilder;
 import ude.edu.uy.controldeplagas.converters.EncodeBase64;
+import ude.edu.uy.controldeplagas.converters.ServerResponse;
 
 /**
  * Created by mzimmer on 24/11/17.
@@ -55,9 +60,17 @@ public class ActivityAltaCliente extends AppCompatActivity {
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // metodo para guardar
-                new guardarUsuario().execute();
+                String nombre = txtNombre.getText().toString();
+                String telefono = txtTelefono.getText().toString();
+                String email = txtEmail.getText().toString();
+                String direccion = txtDireccion.getText().toString();
+                String departamento = "http://localhost:8080/departamento/3";
+                if (nombre.isEmpty() || telefono.isEmpty() || email.isEmpty() || direccion.isEmpty() || departamento.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Los datos no pueden ser vacios.", Toast.LENGTH_LONG).show();
+                } else {
+                    // metodo para guardar
+                    new guardarUsuario().execute();
+                }
             }
         });
     }
@@ -68,15 +81,16 @@ public class ActivityAltaCliente extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private class guardarUsuario extends AsyncTask {
+    private class guardarUsuario extends AsyncTask <String, String, String>{
 
         @Override
-        protected Object doInBackground(Object[] objects) {
+        protected String doInBackground(String... strings) {
             String nombre = txtNombre.getText().toString();
             String telefono = txtTelefono.getText().toString();
             String email = txtEmail.getText().toString();
             String direccion = txtDireccion.getText().toString();
             String departamento = "http://localhost:8080/departamento/3";
+            String resultado = "";
             if (nombre.isEmpty() || telefono.isEmpty() || email.isEmpty() || direccion.isEmpty() || departamento.isEmpty()) {
                 //mostrar error campos vacios
                 Log.d("Datos vacios", "error");
@@ -100,13 +114,36 @@ public class ActivityAltaCliente extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 try{
-                    String resultado = HttpUrlConnection.sendPost(url, authorization, json.toString());
+                    resultado = HttpUrlConnection.sendPost(url, authorization, json.toString());
                     Log.d("resultado: ", resultado);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-            return null;
+            return resultado;
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            String validar = ServerResponse.responseConvert(result);
+            Log.d("validar = ", validar);
+            AlertDialog alert = createAlertDialog("Creacion de usuario", validar, ActivityAltaCliente.this);
+            alert.show();
+        }
+
+        public AlertDialog createAlertDialog(String titulo, String mensaje, Activity activity) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+            builder.setTitle(titulo)
+                    .setMessage(mensaje)
+                    .setPositiveButton("OK",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(intent);
+                                }
+                            });
+            return builder.create();
         }
     }
 

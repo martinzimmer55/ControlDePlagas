@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by mzimmer on 24/11/17.
@@ -34,9 +35,12 @@ public class ActivityLogin extends AppCompatActivity {
         String password = txtPassword.getText().toString();
         if (usuario.isEmpty()) {
             //mostrar mensaje usuario vacio
+            Toast.makeText(getApplicationContext(), "El usuario no puede ser vacio.", Toast.LENGTH_LONG).show();
+
         } else {
             if (password.isEmpty()) {
                 //mostrar mensaje password vacio
+                Toast.makeText(getApplicationContext(), "El password no puede ser vacio.", Toast.LENGTH_LONG).show();
             } else {
                 SharedPreferences prefs = getSharedPreferences(String.valueOf(R.string.preferences_file), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();

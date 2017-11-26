@@ -45,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        usuario = prefs.getString("usuario", "usuario_por_defecto");
-        password = prefs.getString("password", "password_por_defecto");
+        usuario = prefs.getString("usuario", "");
+        password = prefs.getString("password", "");
         Log.d("usuario y password: ", usuario + " " + password);
-        if ((usuario.equals("usuario_por_defecto")) || (password.equals("password_por_defecto"))) {
+        if ((usuario.equals("")) || (password.equals(""))) {
             //direccionar a login
             Intent intent = new Intent(getApplicationContext(), ActivityLogin.class);
             startActivity(intent);
@@ -110,4 +110,19 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void borrarDatos (View v) {
+        borrarConfig();
+        System.exit(0);
+    }
+
+
+    public void borrarConfig() {
+        SharedPreferences prefs = getSharedPreferences(String.valueOf(R.string.preferences_file), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("direccion", "");
+        editor.putString("puerto", "");
+        editor.putString("usuario", "");
+        editor.putString("password", "");
+        editor.commit();
+    }
 }
