@@ -1,5 +1,10 @@
 package ude.edu.uy.controldeplagas;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -7,8 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +25,7 @@ import java.io.UnsupportedEncodingException;
 import ude.edu.uy.controldeplagas.connection.HttpUrlConnection;
 import ude.edu.uy.controldeplagas.connection.UrlBuilder;
 import ude.edu.uy.controldeplagas.converters.EncodeBase64;
+import ude.edu.uy.controldeplagas.converters.ServerResponse;
 
 /**
  * Created by mzimmer on 24/11/17.
@@ -28,6 +36,7 @@ public class ActivityBorrarCliente extends AppCompatActivity {
     private Spinner spDepartamento;
     private Button btnBorrar;
     private String identificador, direccionServer, puerto, usuario, password;
+    private ProgressBar pbar;
 
 
     @Override
@@ -46,6 +55,8 @@ public class ActivityBorrarCliente extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //metodo para borrar clienten
+                pbar = (ProgressBar) findViewById(R.id.pbarCliente);
+                pbar.setVisibility(View.VISIBLE);
                 new borrarCliente().execute();
             }
         });
@@ -70,25 +81,49 @@ public class ActivityBorrarCliente extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private class borrarCliente extends AsyncTask {
+    private class borrarCliente extends AsyncTask <String, String, String>{
 
         @Override
-        protected Object doInBackground(Object[] objects) {
+        protected String doInBackground(String... strings) {
             String url = UrlBuilder.buildUrl(direccionServer, puerto, "cliente", identificador);
             Log.d("Direccion borrar user: ", url);
             String authorization = null;
+            String resultado = "";
             try {
                 authorization = EncodeBase64.encodeUserPassword(usuario, password);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
             try {
-                String resultado = HttpUrlConnection.sendDelete(url, authorization);
+                resultado = HttpUrlConnection.sendDelete(url, authorization);
                 Log.d("resultado: ", resultado);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return null;
+            return resultado;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            String validar = ServerResponse.responseConvert(result);
+            AlertDialog alert = createAlertDialog("Borrado de usuario", validar, ActivityBorrarCliente.this);
+            alert.show();
+        }
+
+        public AlertDialog createAlertDialog(String titulo, String mensaje, Activity activity) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+            builder.setTitle(titulo)
+                    .setMessage(mensaje)
+                    .setPositiveButton("OK",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(intent);
+                                }
+                            });
+            return builder.create();
         }
     }
 

@@ -19,7 +19,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:inputType="textPersonName"
-        android:text="Identificacion" />
+        android:hint="Identificacion"/>
 
     <Button
         android:id="@+id/btn_cliente_volver"
@@ -50,4 +50,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="101dp"
         android:text="Ingrese el identificador del cliente: " />
+
+    <ProgressBar
+        android:id="@+id/pbarBusqueda"
+        style="@android:style/Widget.Material.Light.ProgressBar"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_alignBottom="@+id/txt_cliente_id"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
 </RelativeLayout>

@@ -24,7 +24,12 @@ public class HttpUrlConnection {
                 .build();
         try {
             Response response = client.newCall(request).execute();
-            result = response.body().string();
+            String r = response.toString();
+            if (r.contains("200")) {
+                result = response.body().string();
+            } else {
+                result = "Error: " + r;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,7 +50,12 @@ public class HttpUrlConnection {
 
         try {
             Response response = client.newCall(request).execute();
-            result = response.body().string();
+            String r = response.toString();
+            if (r.contains("201")) {
+                result = response.body().string();
+            } else {
+                result = "Error: " + r;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,7 +76,12 @@ public class HttpUrlConnection {
 
         try {
             Response response = client.newCall(request).execute();
-            result = response.toString();
+            String r = response.toString();
+            if (r.contains("200")) {
+                result = response.body().string();
+            } else {
+                result = "Error: " + r;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -87,7 +102,12 @@ public class HttpUrlConnection {
 
         try {
             Response response = client.newCall(request).execute();
-            result = response.toString();
+            String r = response.toString();
+            if (r.contains("200")) {
+                result = response.body().string();
+            } else {
+                result = "Error: " + r;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -105,7 +125,12 @@ public class HttpUrlConnection {
 
         try {
             Response response = client.newCall(request).execute();
-            result = response.toString();
+            String r = response.toString();
+            if (r.contains("204")) {
+                result = response.body().string();
+            } else {
+                result = "Error: " + r;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,14 +1,18 @@
 package ude.edu.uy.controldeplagas;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,15 +21,17 @@ import java.io.UnsupportedEncodingException;
 import ude.edu.uy.controldeplagas.connection.HttpUrlConnection;
 import ude.edu.uy.controldeplagas.connection.UrlBuilder;
 import ude.edu.uy.controldeplagas.converters.EncodeBase64;
+import ude.edu.uy.controldeplagas.converters.ServerResponse;
 
 /**
  * Created by mzimmer on 25/11/17.
  */
 
-public class ActivityBuscarCliente extends AppCompatActivity{
+public class ActivityBuscarCliente extends AppCompatActivity {
     private TextView txtIdentificador;
     private Intent intentAnterior;
     private String direccionServer, puerto, usuario, password, operacion;
+    private ProgressBar pbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +47,21 @@ public class ActivityBuscarCliente extends AppCompatActivity{
     }
 
     public void buscarCliente(View v) {
-        new buscar().execute();
+        if (!txtIdentificador.getText().toString().isEmpty()) {
+            pbar = (ProgressBar)findViewById(R.id.pbarBusqueda);
+            pbar.setVisibility(View.VISIBLE);
+            new buscar().execute();
+        } else {
+            Toast.makeText(getApplicationContext(), "El identificador no puede ser vacio.", Toast.LENGTH_LONG).show();
+        }
     }
 
-    private class buscar extends AsyncTask{
+    private class buscar extends AsyncTask<String, String, String> {
 
         @Override
-        protected Object doInBackground(Object[] objects) {
+        protected String doInBackground(String... strings) {
             String identificador = txtIdentificador.getText().toString();
             String resultado = "";
-            JSONArray jsonArray = null;
             if (identificador.isEmpty()) {
                 //mensaje identificador vacio
             } else {
@@ -69,88 +80,70 @@ public class ActivityBuscarCliente extends AppCompatActivity{
                     e.printStackTrace();
                 }
             }
-            JSONObject cliente = null;
-            try {
-                cliente = new JSONObject(resultado);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            if (cliente != null) {
-                try{
-                    Intent intent = null;
-                    if (operacion.equals("buscar")) {
-                        intent = new Intent(getApplicationContext(), ActivityVerCliente.class);
-                    } else {
-                        if (operacion.equals("editar")) {
-                            intent = new Intent(getApplicationContext(), ActivityEditarCliente.class);
+            return resultado;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            String validar = ServerResponse.responseConvert(result);
+            if (!validar.equals("Respuesta exitosa")) {
+                AlertDialog alert = createAlertDialog("Error en busqueda de usuario", validar, ActivityBuscarCliente.this);
+                alert.show();
+            } else {
+                JSONObject cliente = null;
+                try {
+                    cliente = new JSONObject(result);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (cliente != null) {
+                    try {
+                        Intent intent = null;
+                        if (operacion.equals("buscar")) {
+                            intent = new Intent(getApplicationContext(), ActivityVerCliente.class);
                         } else {
-                            if (operacion.equals("borrar")) {
-                                intent = new Intent(getApplicationContext(), ActivityBorrarCliente.class);
+                            if (operacion.equals("editar")) {
+                                intent = new Intent(getApplicationContext(), ActivityEditarCliente.class);
+                            } else {
+                                if (operacion.equals("borrar")) {
+                                    intent = new Intent(getApplicationContext(), ActivityBorrarCliente.class);
+                                }
                             }
                         }
+                        intent.putExtra("direccionServer", direccionServer);
+                        intent.putExtra("puerto", puerto);
+                        intent.putExtra("usuario", usuario);
+                        intent.putExtra("password", password);
+                        intent.putExtra("nombre", cliente.getString("nombre"));
+                        intent.putExtra("telefono", cliente.getString("telefono"));
+                        intent.putExtra("email", cliente.getString("email"));
+                        intent.putExtra("direccion", cliente.getString("direccion"));
+                        intent.putExtra("identificador", txtIdentificador.getText().toString());
+                        startActivity(intent);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    intent.putExtra("direccionServer", direccionServer);
-                    intent.putExtra("puerto", puerto);
-                    intent.putExtra("usuario", usuario);
-                    intent.putExtra("password", password);
-                    intent.putExtra("nombre", cliente.getString("nombre"));
-                    intent.putExtra("telefono", cliente.getString("telefono"));
-                    intent.putExtra("email", cliente.getString("email"));
-                    intent.putExtra("direccion", cliente.getString("direccion"));
-                    intent.putExtra("identificador", identificador);
-                    //intent.putExtra("departamento", cliente.getString("departamento"));
-                    startActivity(intent);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                } else {
+                    AlertDialog alert = createAlertDialog("Error en busqueda de usuario", "El usuario no existe.", ActivityBuscarCliente.this);
+                    alert.show();
                 }
-            } else {
-                //usuario no existe, tirar mensaje
             }
-            /*
-            try {
-                jsonArray = new JSONArray(resultado);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            JSONObject cliente = buscarPorNombre(jsonArray, identificador);
-            if (cliente == null) {
-                //mostrar mensaje de error, no existe el cliente con ese nombre
-            } else {
-                try{
-                    Intent intent = new Intent(getApplicationContext(), ActivityVerCliente.class);
-                    intent.putExtra("nombre", cliente.getString("nombre"));
-                    intent.putExtra("telefono", cliente.getString("telefono"));
-                    intent.putExtra("email", cliente.getString("email"));
-                    intent.putExtra("direccion", cliente.getString("direccion"));
-                    intent.putExtra("departamento", cliente.getString("departamento"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-            }
-            }
-
-            */
-            return null;
         }
-    }
 
-    public JSONObject buscarPorNombre (JSONArray jsonArray, String nombre) {
-        int i = 0;
-        boolean encontrado = false;
-        JSONObject result = null;
-        while ((i<jsonArray.length()) && (!encontrado)) {
-            try {
-                JSONObject cliente = jsonArray.getJSONObject(i);
-                String name = cliente.getString("nombre");
-                if(name.equals(nombre)) {
-                    result = jsonArray.getJSONObject(i);
-                    encontrado = true;
-                }
+        public AlertDialog createAlertDialog(String titulo, String mensaje, Activity activity) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            i++;
+            builder.setTitle(titulo)
+                    .setMessage(mensaje)
+                    .setPositiveButton("OK",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(intent);
+                                }
+                            });
+            return builder.create();
         }
-        return result;
     }
 }

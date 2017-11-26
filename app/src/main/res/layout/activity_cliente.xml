@@ -110,4 +110,13 @@
         tools:layout_editor_absoluteX="279dp"
         tools:layout_editor_absoluteY="446dp" />
 
+    <ProgressBar
+        android:id="@+id/pbarCliente"
+        style="@android:style/Widget.Material.ProgressBar"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_below="@+id/txt_cliente_nombre"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
+
 </RelativeLayout>
