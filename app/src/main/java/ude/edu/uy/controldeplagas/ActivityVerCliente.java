@@ -16,6 +16,7 @@ public class ActivityVerCliente extends AppCompatActivity{
 
     private TextView txtTitulo, txtId, txtNombre, txtTelefono, txtEmail, txtDireccion;
     private Button btnGuardar;
+    private Spinner spDepto;
 
 
     @Override
@@ -37,6 +38,7 @@ public class ActivityVerCliente extends AppCompatActivity{
         txtEmail.setText(intentAnterior.getStringExtra("email"));
         txtTelefono.setText(intentAnterior.getStringExtra("telefono"));
         //falta departamento
+        spDepto = (Spinner) findViewById(R.id.sp_cliente_departamento);
 
     }
 

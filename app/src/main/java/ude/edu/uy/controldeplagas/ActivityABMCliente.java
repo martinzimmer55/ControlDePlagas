@@ -54,4 +54,9 @@ public class ActivityABMCliente extends AppCompatActivity {
         intent.putExtra("operacion", "borrar");
         startActivity(intent);
     }
+
+    public void volverMain(View v) {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
 }

@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:onClick="probarPost">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imgUsuario"
@@ -93,15 +92,5 @@
         android:layout_above="@+id/imgLogout"
         android:layout_alignStart="@+id/imgLogout"
         android:text="Salir" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imgLogout"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="22dp"
-        android:onClick="testpost"
-        android:text="Button" />
 
 </RelativeLayout>
