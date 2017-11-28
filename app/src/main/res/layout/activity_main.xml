@@ -29,7 +29,7 @@
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_alignStart="@+id/txtEditarCliente"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/txtEditarCliente"
         android:onClick="buscarCliente"
         app:srcCompat="@drawable/search_user" />
 
@@ -37,9 +37,8 @@
         android:id="@+id/imgBorrarCliente"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:layout_above="@+id/imgLogout"
         android:layout_alignStart="@+id/imgEditarCliente"
-        android:layout_marginBottom="12dp"
+        android:layout_below="@+id/txtOpciones"
         android:onClick="configurarServer"
         app:srcCompat="@drawable/server_preferences" />
 
@@ -65,7 +64,7 @@
         android:id="@+id/txtEditarCliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/imgEditarCliente"
+        android:layout_below="@+id/imgABM"
         android:layout_centerHorizontal="true"
         android:text="Buscar Cliente" />
 
@@ -73,7 +72,7 @@
         android:id="@+id/txtOpciones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/imgBorrarCliente"
+        android:layout_below="@+id/imgEditarCliente"
         android:layout_centerHorizontal="true"
         android:text="Opciones" />
 

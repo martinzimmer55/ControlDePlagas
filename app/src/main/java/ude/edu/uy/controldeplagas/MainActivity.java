@@ -22,7 +22,7 @@ import ude.edu.uy.controldeplagas.converters.EncodeBase64;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView txtABM;
+    private TextView txtABM, txtUserLogueado;
     private ImageView imgABM;
     private String direccion, puerto, usuario, password, perfil;
 
@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), ActivityLogin.class);
             startActivity(intent);
         }
+        txtUserLogueado = (TextView)findViewById(R.id.txtUsuarioLogueado);
+        txtUserLogueado.setText(usuario);
         perfil = prefs.getString("perfil", "");
         if (perfil.equals("operario")) {
             txtABM = (TextView) findViewById(R.id.txtAltaCliente);
