@@ -1,12 +1,17 @@
 package ude.edu.uy.controldeplagas;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * Created by mzimmer on 25/11/17.
@@ -17,6 +22,9 @@ public class ActivityVerCliente extends AppCompatActivity{
     private TextView txtTitulo, txtId, txtNombre, txtTelefono, txtEmail, txtDireccion;
     private Button btnGuardar;
     private Spinner spDepto;
+    private ArrayList listaDeptos;
+    private ArrayAdapter<String> adapter;
+    private String departamento;
 
 
     @Override
@@ -37,13 +45,31 @@ public class ActivityVerCliente extends AppCompatActivity{
         txtDireccion.setText(intentAnterior.getStringExtra("direccion"));
         txtEmail.setText(intentAnterior.getStringExtra("email"));
         txtTelefono.setText(intentAnterior.getStringExtra("telefono"));
-        //falta departamento
+        departamento = intentAnterior.getStringExtra("departamento");
         spDepto = (Spinner) findViewById(R.id.sp_cliente_departamento);
-
+        new llenarSpiner().execute();
     }
 
     public void volverMain (View v) {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
+    }
+
+    private class llenarSpiner extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            listaDeptos = new ArrayList();
+            listaDeptos.add(departamento);
+            adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.custom_text_view, listaDeptos);
+            return departamento;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            spDepto.setAdapter(adapter);
+            int pos = listaDeptos.indexOf(departamento);
+            spDepto.setSelection(pos);
+        }
     }
 }

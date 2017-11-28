@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -20,9 +22,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.security.KeyStore;
+import java.util.ArrayList;
+import java.util.Map;
 
 import ude.edu.uy.controldeplagas.connection.HttpUrlConnection;
 import ude.edu.uy.controldeplagas.connection.UrlBuilder;
+import ude.edu.uy.controldeplagas.converters.Departamentos;
 import ude.edu.uy.controldeplagas.converters.EncodeBase64;
 import ude.edu.uy.controldeplagas.converters.ServerResponse;
 
@@ -32,11 +38,16 @@ import ude.edu.uy.controldeplagas.converters.ServerResponse;
 
 public class ActivityEditarCliente extends AppCompatActivity{
     private TextView txtTitulo, txtId, txtNombre, txtTelefono, txtEmail, txtDireccion;
-    private Spinner spDepartamento;
+    private Spinner spDepto;
     private Button btnGuardar;
     private Intent intentAnterior;
     private String direccionServer, puerto, usuario, password, nombre, telefono, email, direccion, departamento, identificador;
     private ProgressBar pbar;
+
+    private ArrayList listaDeptos;
+    private ArrayAdapter<String> adapter;
+    private Map<String, String> mapaDeptos;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +63,7 @@ public class ActivityEditarCliente extends AppCompatActivity{
         email = intentAnterior.getStringExtra("email");
         direccion = intentAnterior.getStringExtra("direccion");
         identificador = intentAnterior.getStringExtra("identificador");
+        departamento = intentAnterior.getStringExtra("departamento");
 
         txtTitulo = (TextView) findViewById(R.id.txt_cliente_titulo);
         txtNombre = (TextView) findViewById(R.id.txt_cliente_nombre);
@@ -62,7 +74,23 @@ public class ActivityEditarCliente extends AppCompatActivity{
         txtEmail.setText(email);
         txtDireccion = (TextView) findViewById(R.id.txt_cliente_direccion);
         txtDireccion.setText(direccion);
-        spDepartamento = (Spinner) findViewById(R.id.sp_cliente_departamento);
+        spDepto = (Spinner) findViewById(R.id.sp_cliente_departamento);
+        new llenarSpiner().execute();
+        spDepto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                departamento = spDepto.getSelectedItem().toString();
+                Log.d("depto seleccionado: ", departamento);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
         txtTitulo.setText(R.string.cliente_editar_titulo);
         btnGuardar = (Button) findViewById(R.id.btn_cliente_siguiente);
         btnGuardar.setText(R.string.boton_modificar);
@@ -73,7 +101,6 @@ public class ActivityEditarCliente extends AppCompatActivity{
                 String telefono = txtTelefono.getText().toString();
                 String email = txtEmail.getText().toString();
                 String direccion = txtDireccion.getText().toString();
-                String departamento = "http://localhost:8080/departamento/3";
                 if (nombre.isEmpty() || telefono.isEmpty() || email.isEmpty() || direccion.isEmpty() || departamento.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Los datos no pueden ser vacios.", Toast.LENGTH_LONG).show();
                 } else {
@@ -92,6 +119,39 @@ public class ActivityEditarCliente extends AppCompatActivity{
         startActivity(intent);
     }
 
+    private class llenarSpiner extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String resultado = "";
+            String url = UrlBuilder.buildUrl(direccionServer, puerto, "departamento", "");
+            String authorization = null;
+            try {
+                authorization = EncodeBase64.encodeUserPassword(usuario, password);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            try {
+                resultado = HttpUrlConnection.sendGet(url, authorization);
+                Log.d("resultado: ", resultado);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            mapaDeptos = Departamentos.getDatosDepartamentos(resultado);
+            listaDeptos = Departamentos.getListaDepartamentos(mapaDeptos);
+            adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.custom_text_view, listaDeptos);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            spDepto.setAdapter(adapter);
+            int pos = listaDeptos.indexOf(departamento);
+            spDepto.setSelection(pos);
+        }
+    }
+
+
     private class modificarUsuario extends AsyncTask<String, String, String> {
 
         @Override
@@ -100,9 +160,9 @@ public class ActivityEditarCliente extends AppCompatActivity{
             String telefono = txtTelefono.getText().toString();
             String email = txtEmail.getText().toString();
             String direccion = txtDireccion.getText().toString();
-            String departamento = "http://localhost:8080/departamento/3";
+            String deptoUrl = mapaDeptos.get(departamento);
             String resultado = "";
-            if (nombre.isEmpty() || telefono.isEmpty() || email.isEmpty() || direccion.isEmpty() || departamento.isEmpty()) {
+            if (nombre.isEmpty() || telefono.isEmpty() || email.isEmpty() || direccion.isEmpty() || deptoUrl.isEmpty()) {
                 //mostrar error campos vacios
                 Log.d("Datos vacios", "error");
             } else {
@@ -112,7 +172,7 @@ public class ActivityEditarCliente extends AppCompatActivity{
                     json.put("telefono", telefono);
                     json.put("email", email);
                     json.put("direccion", direccion);
-                    json.put("departamento", departamento);
+                    json.put("departamento", deptoUrl);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -155,6 +215,11 @@ public class ActivityEditarCliente extends AppCompatActivity{
                             });
             return builder.create();
         }
+    }
+
+    public void volverMain(View v) {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 
 }

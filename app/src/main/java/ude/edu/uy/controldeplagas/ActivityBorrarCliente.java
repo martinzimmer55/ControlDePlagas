@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -21,9 +23,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Map;
 
 import ude.edu.uy.controldeplagas.connection.HttpUrlConnection;
 import ude.edu.uy.controldeplagas.connection.UrlBuilder;
+import ude.edu.uy.controldeplagas.converters.Departamentos;
 import ude.edu.uy.controldeplagas.converters.EncodeBase64;
 import ude.edu.uy.controldeplagas.converters.ServerResponse;
 
@@ -33,10 +38,12 @@ import ude.edu.uy.controldeplagas.converters.ServerResponse;
 
 public class ActivityBorrarCliente extends AppCompatActivity {
     private TextView txtTitulo, txtNombre, txtTelefono, txtEmail, txtDireccion;
-    private Spinner spDepartamento;
+    private Spinner spDepto;
     private Button btnBorrar;
-    private String identificador, direccionServer, puerto, usuario, password;
+    private String identificador, direccionServer, puerto, usuario, password, departamento, deptoUrl;
     private ProgressBar pbar;
+    private ArrayList listaDeptos;
+    private ArrayAdapter<String> adapter;
 
 
     @Override
@@ -73,12 +80,32 @@ public class ActivityBorrarCliente extends AppCompatActivity {
         puerto = intentAnterior.getStringExtra("puerto");
         usuario = intentAnterior.getStringExtra("usuario");
         password = intentAnterior.getStringExtra("password");
+        departamento = intentAnterior.getStringExtra("departamento");
+        spDepto = (Spinner) findViewById(R.id.sp_cliente_departamento);
+        new llenarSpiner().execute();
 
     }
 
     public void volverMain(View v) {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
+    }
+
+    private class llenarSpiner extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            listaDeptos = new ArrayList();
+            listaDeptos.add(departamento);
+            adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.custom_text_view, listaDeptos);
+            return departamento;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.d("llenando spinner: ", departamento);
+            spDepto.setAdapter(adapter);
+        }
     }
 
     private class borrarCliente extends AsyncTask <String, String, String>{

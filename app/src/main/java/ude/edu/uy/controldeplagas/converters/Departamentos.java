@@ -25,7 +25,6 @@ public class Departamentos {
         try {
             JSONObject jsonObject = new JSONObject(json);
             JSONObject embedded = jsonObject.getJSONObject("_embedded");
-            Log.d("EMBEDDED: ", embedded.toString());
             deptosArray = embedded.getJSONArray("departamentoes");
             for (int i = 0; i < deptosArray.length(); i++) {
                 JSONObject depto = deptosArray.getJSONObject(i);
@@ -33,7 +32,6 @@ public class Departamentos {
                 JSONObject links = depto.getJSONObject("_links");
                 JSONObject self = links.getJSONObject("self");
                 String url = self.getString("href");
-                Log.d("la url es: ", url);
                 deptosMap.put(nombre, url);
             }
         } catch (JSONException e) {

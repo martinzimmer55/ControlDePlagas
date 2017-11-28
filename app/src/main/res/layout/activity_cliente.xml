@@ -16,26 +16,15 @@
         tools:layout_editor_absoluteY="16dp" />
 
     <EditText
-        android:id="@+id/txt_cliente_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/txt_cliente_email"
-        android:layout_alignStart="@+id/sp_cliente_departamento"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Identificacion"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="58dp" />
-
-    <EditText
         android:id="@+id/txt_cliente_nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txt_cliente_telefono"
         android:layout_alignStart="@+id/txt_cliente_telefono"
+        android:layout_below="@+id/txt_cliente_titulo"
+        android:layout_marginTop="38dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="Nombre"
+        android:inputType="textPersonName"
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="97dp" />
 
@@ -43,11 +32,11 @@
         android:id="@+id/txt_cliente_telefono"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txt_cliente_id"
-        android:layout_alignStart="@+id/txt_cliente_id"
+        android:layout_alignStart="@+id/sp_cliente_departamento"
+        android:layout_below="@+id/txt_cliente_nombre"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="Teléfono"
+        android:inputType="textPersonName"
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="143dp" />
 
@@ -55,11 +44,11 @@
         android:id="@+id/txt_cliente_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txt_cliente_direccion"
-        android:layout_alignStart="@+id/txt_cliente_direccion"
+        android:layout_alignStart="@+id/txt_cliente_telefono"
+        android:layout_below="@+id/txt_cliente_telefono"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="Email"
+        android:inputType="textPersonName"
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="189dp" />
 
@@ -67,11 +56,11 @@
         android:id="@+id/txt_cliente_direccion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/sp_cliente_departamento"
-        android:layout_alignEnd="@+id/sp_cliente_departamento"
+        android:layout_alignStart="@+id/txt_cliente_email"
+        android:layout_below="@+id/txt_cliente_email"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="Direccion"
+        android:inputType="textPersonName"
         tools:layout_editor_absoluteX="85dp"
         tools:layout_editor_absoluteY="276dp" />
 
@@ -79,9 +68,8 @@
         android:id="@+id/sp_cliente_departamento"
         android:layout_width="214dp"
         android:layout_height="42dp"
-        android:layout_above="@+id/btn_cliente_volver"
+        android:layout_below="@+id/txt_cliente_direccion"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="58dp"
         tools:layout_editor_absoluteX="85dp"
         tools:layout_editor_absoluteY="234dp" />
 
@@ -115,7 +103,7 @@
         style="@android:style/Widget.Material.ProgressBar"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:layout_below="@+id/txt_cliente_nombre"
+        android:layout_above="@+id/sp_cliente_departamento"
         android:layout_centerHorizontal="true"
         android:visibility="invisible" />
 

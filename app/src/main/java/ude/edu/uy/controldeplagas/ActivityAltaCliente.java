@@ -65,9 +65,7 @@ public class ActivityAltaCliente extends AppCompatActivity {
         txtTitulo.setText(R.string.cliente_alta_titulo);
 
         departamento = null;
-        Log.d("Busco spinner: ", "");
         spDepto = (Spinner) findViewById(R.id.sp_cliente_departamento);
-        Log.d("Lleno spinner: ", "");
         new llenarSpiner().execute();
         spDepto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
