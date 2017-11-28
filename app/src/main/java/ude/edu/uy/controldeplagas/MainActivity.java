@@ -24,8 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView txtABM;
     private ImageView imgABM;
-    private Button btnPrueba;
-    private String direccion, puerto, usuario, password;
+    private String direccion, puerto, usuario, password, perfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
             //direccionar a login
             Intent intent = new Intent(getApplicationContext(), ActivityLogin.class);
             startActivity(intent);
+        }
+        perfil = prefs.getString("perfil", "");
+        if (perfil.equals("operario")) {
+            txtABM = (TextView) findViewById(R.id.txtAltaCliente);
+            imgABM = (ImageView) findViewById(R.id.imgABM);
+            txtABM.setVisibility(View.INVISIBLE);
+            imgABM.setVisibility(View.INVISIBLE);
         }
     }
 

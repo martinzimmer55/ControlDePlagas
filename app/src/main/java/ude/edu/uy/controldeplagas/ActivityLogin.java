@@ -42,10 +42,15 @@ public class ActivityLogin extends AppCompatActivity {
                 //mostrar mensaje password vacio
                 Toast.makeText(getApplicationContext(), "El password no puede ser vacio.", Toast.LENGTH_LONG).show();
             } else {
+                String perfil = "operario";
+                if ((usuario.equals("vendedor")) || (usuario.equals("vend"))) {
+                    perfil = "vendedor";
+                }
                 SharedPreferences prefs = getSharedPreferences(String.valueOf(R.string.preferences_file), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("usuario", usuario);
                 editor.putString("password", password);
+                editor.putString("perfil", perfil);
                 editor.apply();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
