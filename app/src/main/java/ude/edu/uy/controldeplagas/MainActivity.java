@@ -32,18 +32,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //saco shared preferences y verifico direccion y puerto
-        SharedPreferences prefs = getSharedPreferences(String.valueOf(R.string.preferences_file), Context.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("controldeplagaspref", Context.MODE_PRIVATE);
         direccion = prefs.getString("direccion", "");
         puerto = prefs.getString("puerto", "");
-        Log.d("shared pref: ", prefs.toString());
         Log.d("direccion: ", direccion);
-        Log.d("puerto: ",puerto);
+        Log.d("puerto: ", puerto);
         if ((direccion.equals("")) || (puerto.equals(""))) {
             //direccionar a configuracion
             Intent intent = new Intent(getApplicationContext(), ActivityConfigurarServer.class);
             startActivity(intent);
         }
-
         usuario = prefs.getString("usuario", "");
         password = prefs.getString("password", "");
         Log.d("usuario y password: ", usuario + " " + password);
@@ -52,10 +50,11 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), ActivityLogin.class);
             startActivity(intent);
         }
-        txtUserLogueado = (TextView)findViewById(R.id.txtUsuarioLogueado);
+
+        txtUserLogueado = (TextView) findViewById(R.id.txtUsuarioLogueado);
         txtUserLogueado.setText(usuario);
         perfil = prefs.getString("perfil", "");
-        if (perfil.equals("operario")) {
+        if (!perfil.equals("ROLE_VENDEDOR")) {
             txtABM = (TextView) findViewById(R.id.txtAltaCliente);
             imgABM = (ImageView) findViewById(R.id.imgABM);
             txtABM.setVisibility(View.INVISIBLE);
@@ -70,43 +69,20 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("usuario", usuario);
         intent.putExtra("password", password);
         startActivity(intent);
+        System.exit(0);
     }
 
-    public void testpost(View v) {
-        new ProbarPost().execute();
-    }
-
-    private class ProbarPost extends AsyncTask {
-
-        @Override
-        protected Object doInBackground(Object[] objects) {
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("nombre", "Carlos3002");
-                jsonObject.put("telefono", "16561656");
-                jsonObject.put("email", "dafd@adfdaf.com");
-                jsonObject.put("direccion", "odofidf");
-                jsonObject.put("departamento", "http://localhost:8080/departamento/3");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            String res = HttpUrlConnection.sendPost("http://192.168.255.171:8080/cliente/", "dmVuZGVkb3I6UGFzczAxLg==",
-                    jsonObject.toString());
-            Log.d("El resultado es: ", res);
-            return null;
-        }
-    }
-
-    public void configurarServer (View v) {
+    public void configurarServer(View v) {
+        borrarConfig();
         Intent intent = new Intent(getApplicationContext(), ActivityConfigurarServer.class);
         startActivity(intent);
+        System.exit(0);
     }
 
-    public void configurarLogin (View v) {
+    /*public void configurarLogin(View v) {
         Intent intent = new Intent(getApplicationContext(), ActivityLogin.class);
         startActivity(intent);
-    }
+    }*/
 
     public void buscarCliente(View v) {
         Intent intent = new Intent(getApplicationContext(), ActivityBuscarCliente.class);
@@ -116,16 +92,17 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("password", password);
         intent.putExtra("operacion", "buscar");
         startActivity(intent);
+        System.exit(0);
     }
 
-    public void borrarDatos (View v) {
+    public void borrarDatos(View v) {
         borrarConfig();
-        System.exit(0);
+        finish();
     }
 
 
     public void borrarConfig() {
-        SharedPreferences prefs = getSharedPreferences(String.valueOf(R.string.preferences_file), Context.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("controldeplagaspref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("direccion", "");
         editor.putString("puerto", "");

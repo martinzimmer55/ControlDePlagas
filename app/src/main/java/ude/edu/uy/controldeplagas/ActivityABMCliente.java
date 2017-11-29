@@ -33,6 +33,7 @@ public class ActivityABMCliente extends AppCompatActivity {
         intent.putExtra("usuario", usuario);
         intent.putExtra("password", password);
         startActivity(intent);
+        System.exit(0);
     }
 
     public void editarCliente (View v){
@@ -43,6 +44,7 @@ public class ActivityABMCliente extends AppCompatActivity {
         intent.putExtra("password", password);
         intent.putExtra("operacion", "editar");
         startActivity(intent);
+        System.exit(0);
     }
 
     public void borrarCliente (View v) {
@@ -53,10 +55,12 @@ public class ActivityABMCliente extends AppCompatActivity {
         intent.putExtra("password", password);
         intent.putExtra("operacion", "borrar");
         startActivity(intent);
+        System.exit(0);
     }
 
     public void volverMain(View v) {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
+        System.exit(0);
     }
 }

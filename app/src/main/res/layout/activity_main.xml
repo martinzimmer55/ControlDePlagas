@@ -12,7 +12,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginEnd="15dp"
         android:layout_marginTop="12dp"
-        android:onClick="configurarLogin"
         app:srcCompat="@drawable/user_logged" />
 
     <ImageView

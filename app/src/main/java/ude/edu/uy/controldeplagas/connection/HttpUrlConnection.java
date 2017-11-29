@@ -36,6 +36,48 @@ public class HttpUrlConnection {
         return result;
     }
 
+    public static String verificarServer(String url) {
+        String result = "";
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .get()
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.code()==200){
+                result = "Verificacion exitosa";
+            } else {
+                result = "Datos Incorrectos";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static String verificarLogin(String url, String authorization) {
+        String result = "";
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .get()
+                .addHeader("authorization", "Basic " + authorization)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.code()==200){
+                result = response.body().string();
+            } else {
+                result = "Datos Incorrectos";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
     public static String sendPost(String url, String authorization, String json) {
         String result = "";
         OkHttpClient client = new OkHttpClient();

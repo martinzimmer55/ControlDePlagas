@@ -116,6 +116,7 @@ public class ActivityEditarCliente extends AppCompatActivity{
     public void volverABMCliente(View v) {
         Intent intent = new Intent(getApplicationContext(), ActivityABMCliente.class);
         startActivity(intent);
+        System.exit(0);
     }
 
     private class llenarSpiner extends AsyncTask<String, String, String> {
@@ -210,6 +211,7 @@ public class ActivityEditarCliente extends AppCompatActivity{
                                 public void onClick(DialogInterface dialog, int which) {
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
+                                    System.exit(0);
                                 }
                             });
             return builder.create();
@@ -219,6 +221,7 @@ public class ActivityEditarCliente extends AppCompatActivity{
     public void volverMain(View v) {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
+        System.exit(0);
     }
 
 }
