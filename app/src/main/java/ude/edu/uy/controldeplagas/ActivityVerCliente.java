@@ -53,7 +53,6 @@ public class ActivityVerCliente extends AppCompatActivity{
     public void volverMain (View v) {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
-        System.exit(0);
     }
 
     private class llenarSpiner extends AsyncTask<String, String, String> {

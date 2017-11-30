@@ -105,7 +105,6 @@ public class ActivityAltaCliente extends AppCompatActivity {
     public void volverMain(View v) {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
-        System.exit(0);
     }
 
 
@@ -197,7 +196,7 @@ public class ActivityAltaCliente extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
-                                    System.exit(0);
+                                    //System.exit(0);
                                 }
                             });
             return builder.create();

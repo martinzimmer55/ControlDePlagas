@@ -131,11 +131,10 @@ public class ActivityLogin extends AppCompatActivity {
                                 editor.putString("usuario", usuario);
                                 editor.putString("password", password);
                                 editor.putString("perfil", perfilUsuario);
-                                editor.apply();
+                                editor.commit();
                                 Toast.makeText(getApplicationContext(), "Login correcto", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
-                                System.exit(0);
                             }
                         }
                     }

@@ -116,7 +116,6 @@ public class ActivityBuscarCliente extends AppCompatActivity {
                         intentNuevo.putExtra("direccion", cliente.getString("direccion"));
                         intentNuevo.putExtra("identificador", txtIdentificador.getText().toString());
                         new buscarDepto().execute();
-                        //startActivity(intentNuevo);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -169,7 +168,6 @@ public class ActivityBuscarCliente extends AppCompatActivity {
                 }
                 intentNuevo.putExtra("departamento", depto);
                 startActivity(intentNuevo);
-                System.exit(0);
             } else {
                 AlertDialog alert = createAlertDialog("Error en busqueda de usuario", "El usuario no existe.", ActivityBuscarCliente.this);
                 alert.show();
@@ -190,7 +188,6 @@ public class ActivityBuscarCliente extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
-                                System.exit(0);
                             }
                         });
         return builder.create();
@@ -200,6 +197,5 @@ public class ActivityBuscarCliente extends AppCompatActivity {
     public void volverMain(View v) {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
-        System.exit(0);
     }
 }

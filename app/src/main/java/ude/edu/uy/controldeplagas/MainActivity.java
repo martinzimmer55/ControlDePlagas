@@ -69,20 +69,13 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("usuario", usuario);
         intent.putExtra("password", password);
         startActivity(intent);
-        System.exit(0);
     }
 
     public void configurarServer(View v) {
         borrarConfig();
         Intent intent = new Intent(getApplicationContext(), ActivityConfigurarServer.class);
         startActivity(intent);
-        System.exit(0);
     }
-
-    /*public void configurarLogin(View v) {
-        Intent intent = new Intent(getApplicationContext(), ActivityLogin.class);
-        startActivity(intent);
-    }*/
 
     public void buscarCliente(View v) {
         Intent intent = new Intent(getApplicationContext(), ActivityBuscarCliente.class);
@@ -92,12 +85,10 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("password", password);
         intent.putExtra("operacion", "buscar");
         startActivity(intent);
-        System.exit(0);
     }
 
     public void borrarDatos(View v) {
         borrarConfig();
-        finish();
     }
 
 
@@ -109,5 +100,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("usuario", "");
         editor.putString("password", "");
         editor.commit();
+        finishAffinity();
+        System.exit(0);
     }
 }

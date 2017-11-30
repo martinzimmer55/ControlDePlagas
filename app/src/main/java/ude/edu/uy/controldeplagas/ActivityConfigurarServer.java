@@ -90,13 +90,12 @@ public class ActivityConfigurarServer extends AppCompatActivity {
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("direccion", direccion);
                 editor.putString("puerto", puerto);
-                editor.apply();
+                editor.commit();
                 Toast.makeText(getApplicationContext(), "Datos correctos", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), ActivityLogin.class);
                 intent.putExtra("direccion", direccion);
                 intent.putExtra("puerto", puerto);
                 startActivity(intent);
-                System.exit(0);
             } else {
                 Toast.makeText(getApplicationContext(), "Datos incorrectos, por favor verifique", Toast.LENGTH_LONG).show();
             }
