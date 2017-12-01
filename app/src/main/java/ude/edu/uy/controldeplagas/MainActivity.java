@@ -72,7 +72,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void configurarServer(View v) {
-        borrarConfig();
+        //borrarConfig();
+        SharedPreferences prefs = getSharedPreferences("controldeplagaspref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("direccion", "");
+        editor.putString("puerto", "");
+        editor.putString("usuario", "");
+        editor.putString("password", "");
+        editor.commit();
         Intent intent = new Intent(getApplicationContext(), ActivityConfigurarServer.class);
         startActivity(intent);
     }
