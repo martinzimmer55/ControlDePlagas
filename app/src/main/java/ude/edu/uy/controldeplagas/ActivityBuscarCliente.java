@@ -162,8 +162,11 @@ public class ActivityBuscarCliente extends AppCompatActivity {
             if (departamento != null) {
                 String depto = "";
                 try {
-                    depto = departamento.getString("nombre");
+                    //depto = departamento.getString("nombre");
+                    depto =  new String(departamento.getString("nombre").getBytes("ISO-8859-1"), "UTF-8");
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
                 intentNuevo.putExtra("departamento", depto);

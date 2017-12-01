@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -28,13 +29,17 @@ public class Departamentos {
             deptosArray = embedded.getJSONArray("departamentoes");
             for (int i = 0; i < deptosArray.length(); i++) {
                 JSONObject depto = deptosArray.getJSONObject(i);
-                String nombre = depto.getString("nombre");
+                String n = depto.getString("nombre");
+                //String nombre = depto.getString("nombre");
+                String nombre =  new String(depto.getString("nombre").getBytes("ISO-8859-1"), "UTF-8");
                 JSONObject links = depto.getJSONObject("_links");
                 JSONObject self = links.getJSONObject("self");
                 String url = self.getString("href");
                 deptosMap.put(nombre, url);
             }
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         return deptosMap;
